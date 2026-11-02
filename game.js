@@ -8,6 +8,8 @@ const LEFT_RAIL = 438;
 const RIGHT_RAIL = 842;
 const CONTROL_TOP = 202;
 const CONTROL_BOTTOM = 582;
+// Constant fall speed (px/s) so even the lowest landing marker's note starts above the screen.
+const FALL_SPEED = (CONTROL_BOTTOM + 40) / FLIGHT_TIME;
 
 const difficultySettings = {
   easy: { tolerance: 0.22, label: "EASY", color: "#60d5a8" },
@@ -767,8 +769,8 @@ function drawNotes(songTime) {
     const y = levelToY(note.level);
     const isLeft = note.hand === "left";
     const targetX = isLeft ? LEFT_RAIL : RIGHT_RAIL;
-    const startX = isLeft ? -90 : DESIGN_WIDTH + 90;
-    const x = clamp(startX + (targetX - startX) * progress, Math.min(startX, targetX), Math.max(startX, targetX));
+    // Fall straight down the hand's own rail and stop on the landing marker at the arrival time.
+    const noteY = y - Math.max(0, note.time - songTime) * FALL_SPEED;
     const color = isLeft ? "#72d8ef" : "#ff8a91";
 
     if (!note.judged && progress > 0) {
@@ -787,17 +789,17 @@ function drawNotes(songTime) {
     if (note.result === "hit") context.globalAlpha = Math.max(0, 1 - (songTime - note.time) * 3);
     context.fillStyle = color;
     context.beginPath();
-    context.arc(x, y, 17, 0, Math.PI * 2);
+    context.arc(targetX, noteY, 17, 0, Math.PI * 2);
     context.fill();
     context.strokeStyle = "#fff9ed";
     context.lineWidth = 4;
     context.beginPath();
-    context.arc(x, y, 9, 0, Math.PI * 2);
+    context.arc(targetX, noteY, 9, 0, Math.PI * 2);
     context.stroke();
     context.fillStyle = "#26172d";
     context.font = "900 12px Trebuchet MS";
     context.textAlign = "center";
-    context.fillText(isLeft ? "L" : "R", x, y + 4);
+    context.fillText(isLeft ? "L" : "R", targetX, noteY + 4);
     context.restore();
   }
 }

@@ -8,8 +8,6 @@ const LEFT_RAIL = 438;
 const RIGHT_RAIL = 842;
 const CONTROL_TOP = 202;
 const CONTROL_BOTTOM = 582;
-// Constant fall speed (px/s) so even the lowest landing marker's note starts above the screen.
-const FALL_SPEED = (CONTROL_BOTTOM + 40) / FLIGHT_TIME;
 
 const difficultySettings = {
   easy: { tolerance: 0.22, label: "EASY", color: "#60d5a8" },
@@ -769,8 +767,8 @@ function drawNotes(songTime) {
     const y = levelToY(note.level);
     const isLeft = note.hand === "left";
     const targetX = isLeft ? LEFT_RAIL : RIGHT_RAIL;
-    // Fall straight down the hand's own rail and stop on the landing marker at the arrival time.
-    const noteY = y - Math.max(0, note.time - songTime) * FALL_SPEED;
+    // Fall straight down the hand's own rail from just above the screen, landing on the marker at the arrival time.
+    const noteY = -40 + (y + 40) * Math.min(1, progress);
     const color = isLeft ? "#72d8ef" : "#ff8a91";
 
     if (!note.judged && progress > 0) {

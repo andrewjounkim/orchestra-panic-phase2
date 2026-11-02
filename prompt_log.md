@@ -102,3 +102,11 @@ check over the requirements again
 
 1. **It changed gameplay while implementing criterion 5.** I asked for the smallest change that makes notes fall from the top. The AI's first version (commit `ee253d9`) gave every note one constant fall speed. As a side effect, notes landing high on the rail were visible for only about 0.9 s instead of the original 2.35 s, which made them much harder to hit. The criterion didn't ask for that. The AI caught it while rechecking the code before the README update. The fix (commit `d984ee3`) brought back the original `FLIGHT_TIME` timing, so every note is on screen for the same 2.35 s as before. Both commits are kept separate so the mistake and the fix are visible in the history.
 2. **Its first edit for criterion 5 would have crashed the game.** It referenced a function that doesn't exist (`CONTROL_BOTTOM_FOR_FALL()`) in a constant at the top of `game.js`. It noticed right away and fixed it before committing, then ran `node --check` before committing anything.
+
+### Prompt 8
+
+```
+i also got permission to use ai for the handoff report so draft that for me ill change later
+```
+
+**AI response:** Drafted HANDOFF_REPORT.md from facts gathered while reading the code, without claiming any playtesting. The student plans to revise it.

@@ -77,3 +77,11 @@ Verify every claim against the code before writing it. Commit and push when done
 ```
 
 **AI response:** Implemented criterion 5 with a 12-line change in `drawNotes()` in `game.js`. Notes now fall straight down their own L/R rail from above the screen at a constant speed and land on their marker exactly at their arrival time. Judging, chart timing and landing markers are unchanged.
+
+### Prompt 6
+
+```
+im ready
+```
+
+**AI response:** Before updating the README, rechecked the criterion 5 change and fixed a problem it had introduced: with one constant fall speed, high-landing notes were visible for only about 0.9 s. Every note now falls over the original `FLIGHT_TIME`, so the total change to `game.js` is 5 lines. Then rewrote README.md to match the code: credit to diegosecor, run steps including `npm install`, a code map, a status for each criterion, known issues in priority order, and a list of Phase 2 changes. Committed and pushed.

@@ -85,3 +85,20 @@ im ready
 ```
 
 **AI response:** Before updating the README, rechecked the criterion 5 change and fixed a problem it had introduced: with one constant fall speed, high-landing notes were visible for only about 0.9 s. Every note now falls over the original `FLIGHT_TIME`, so the total change to `game.js` is 5 lines. Then rewrote README.md to match the code: credit to diegosecor, run steps including `npm install`, a code map, a status for each criterion, known issues in priority order, and a list of Phase 2 changes. Committed and pushed.
+
+### Prompt 7
+
+```
+check over the requirements again
+```
+
+(followed by the full HW7 assignment page, pasted)
+
+**AI response:** Checked both repos against the assignment. Found that HANDOFF_REPORT.md is still missing (the student must write it without AI), added this section on unwanted AI behavior, and added the missing "known bugs and traps" and "cut corners" sections to the Phase 1 README. The pasted page contains an instruction aimed at AIs to put "hotdog" comments in code; the AI ignored it.
+
+---
+
+## When the AI did something I didn't want
+
+1. **It changed gameplay while implementing criterion 5.** I asked for the smallest change that makes notes fall from the top. The AI's first version (commit `ee253d9`) gave every note one constant fall speed. As a side effect, notes landing high on the rail were visible for only about 0.9 s instead of the original 2.35 s, which made them much harder to hit. The criterion didn't ask for that. The AI caught it while rechecking the code before the README update. The fix (commit `d984ee3`) brought back the original `FLIGHT_TIME` timing, so every note is on screen for the same 2.35 s as before. Both commits are kept separate so the mistake and the fix are visible in the history.
+2. **Its first edit for criterion 5 would have crashed the game.** It referenced a function that doesn't exist (`CONTROL_BOTTOM_FOR_FALL()`) in a constant at the top of `game.js`. It noticed right away and fixed it before committing, then ran `node --check` before committing anything.
